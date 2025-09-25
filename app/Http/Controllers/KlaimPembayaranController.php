@@ -4,32 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pesan;
+use App\Http\Requests\KlaimPembayaranRequest;
+use App\Models\KlaimPembayaran;
 
 class KlaimPembayaranController extends Controller
 {
-    public function bayar(Request $request)
+    public function bayar(KlaimPembayaranRequest $request)
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
             'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
         ]);
-        $amount = (float) $request->input('amount', 0);
-        if ($amount <= 0) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Jumlah pembayaran tidak valid'
-            ], 422);
-        }
+        $validated = $request->validated();
+
+        $record = KlaimPembayaran::create($validated);
 
         return response()->json([
             'success' => true,
             'message' => 'Pembayaran klaim berhasil diproses',
-            'data' => [
-                'transaction_id' => 'TRX-987654',
-                'amount' => $amount,
-                'status' => 'PAID'
-            ]
-        ], 200);
+            'data' => $record,
+        ], 201);
     }
 }
 

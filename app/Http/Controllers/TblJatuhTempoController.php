@@ -4,31 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pesan;
+use App\Http\Requests\IndividuProdukJatuhTempoRequest;
+use App\Models\IndividuProdukJatuhTempo;
 
 class TblJatuhTempoController extends Controller
 {
-    public function index(Request $request)
+    public function index(IndividuProdukJatuhTempoRequest $request)
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
             'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
         ]);
+        $validated = $request->validated();
+
+        $payload = [
+            'nama_peserta' => $validated['nama_peserta'],
+            'nomor_polis' => $validated['nomor_polis'],
+            'nomor_va' => $validated['nomor_va'],
+            'produk_asuransi' => $validated['produk_asuransi'],
+            'premi_per_bulan' => $validated['premi_per_bulan'],
+            'periode_tagihan' => $validated['periode_tagihan'],
+            'jenis_jatuh_tempo' => 'tbl',
+            'nomor_wa_tujuan' => $validated['nomor_wa_tujuan'],
+        ];
+
+        $record = IndividuProdukJatuhTempo::create($payload);
+
         return response()->json([
             'success' => true,
-            'message' => 'Data jatuh tempo TBL',
-            'data' => [
-                [
-                    'policy_number' => 'TBL-101',
-                    'due_date' => '2025-09-30',
-                    'amount_due' => 100000,
-                ],
-                [
-                    'policy_number' => 'TBL-202',
-                    'due_date' => '2025-10-20',
-                    'amount_due' => 175000,
-                ],
-            ]
-        ]);
+            'message' => 'Data jatuh tempo TBL berhasil dibuat',
+            'data' => $record,
+        ], 201);
     }
 }
 

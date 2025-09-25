@@ -4,26 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pesan;
+use App\Http\Requests\TshKartuPesertaRequest;
+use App\Models\TshKartuPeserta;
 
 class TshKartuPesertaController extends Controller
 {
-    public function show(Request $request)
+    public function show(TshKartuPesertaRequest $request)
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
             'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
         ]);
-        $nomor = $request->input('nomor_peserta', 'TSH-0001');
+        $validated = $request->validated();
+
+        $record = TshKartuPeserta::create([
+            'nama_peserta' => $validated['nama_peserta'],
+            'nomor_wa_tujuan' => $validated['nomor_wa_tujuan'],
+            'nomor_kartu' => $validated['nomor_kartu'],
+        ]);
+
         return response()->json([
             'success' => true,
-            'message' => 'Informasi kartu peserta TSH',
             'data' => [
-                'nomor_peserta' => $nomor,
-                'nama' => 'Budi Santoso',
-                'status' => 'AKTIF',
-                'berlaku_sampai' => '2026-01-01',
-            ]
-        ]);
+                'id' => $record->id,
+                'nama_peserta' => $record->nama_peserta,
+                'nomor_wa_tujuan' => $record->nomor_wa_tujuan,
+                'nomor_kartu' => $record->nomor_kartu,
+            ],
+        ], 201);
     }
 }
 

@@ -27,15 +27,15 @@ Route::middleware(['api','verify.api.token'])->group(function () {
     Route::post('/klaim/template/variables', [KlaimPembayaranController::class, 'templateVariables']);
 
     // Jatuh Tempo
-    Route::get('/tsh/jatuh-tempo', [TshJatuhTempoController::class, 'index']);
-    Route::get('/tbl/jatuh-tempo', [TblJatuhTempoController::class, 'index']);
-    Route::get('/individu/jatuh-tempo', [IndividuProdukJatuhTempoController::class, 'index']);
+    Route::post('/tsh/jatuh-tempo', [TshJatuhTempoController::class, 'index']);
+    Route::post('/tbl/jatuh-tempo', [TblJatuhTempoController::class, 'index']);
+    Route::post('/individu/jatuh-tempo', [IndividuProdukJatuhTempoController::class, 'index']);
 
     // Informasi Kartu Peserta TSH
-    Route::get('/tsh/kartu-peserta', [TshKartuPesertaController::class, 'show']);
+    Route::post('/tsh/kartu-peserta', [TshKartuPesertaController::class, 'show']);
 
     // Welcome Greeting
-    Route::get('/welcome', [WelcomeGreetingController::class, 'index']);
+    Route::post('/welcome', [WelcomeGreetingController::class, 'index']);
 
     // Pendaftaran Produk
     Route::post('/produk/daftar', [PendaftaranProdukController::class, 'daftar']);

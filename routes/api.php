@@ -13,7 +13,7 @@ use App\Http\Controllers\TshKartuPesertaController;
 use App\Http\Controllers\WelcomeGreetingController;
 use App\Http\Controllers\PendaftaranProdukController;
 
-Route::middleware('api')->group(function () {
+Route::middleware(['api','verify.api.token'])->group(function () {
     // Reset Password
     Route::post('/auth/reset/request', [AuthResetPasswordController::class, 'requestReset']);
     Route::post('/auth/reset/confirm', [AuthResetPasswordController::class, 'confirmReset']);

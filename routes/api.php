@@ -29,7 +29,7 @@ Route::middleware(['api','verify.api.token'])->group(function () {
     // Jatuh Tempo
     Route::post('/tsh/jatuh-tempo', [TshJatuhTempoController::class, 'index']);
     Route::post('/tbl/jatuh-tempo', [TblJatuhTempoController::class, 'index']);
-    Route::post('/individu/jatuh-tempo', [IndividuProdukJatuhTempoController::class, 'index']);
+    Route::post('/all-product/jatuh-tempo', [IndividuProdukJatuhTempoController::class, 'index']);
 
     // Informasi Kartu Peserta TSH
     Route::post('/tsh/kartu-peserta', [TshKartuPesertaController::class, 'show']);

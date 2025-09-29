@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'qontak' => [
+        'base_url' => env('QONTAK_BASE_URL', 'https://service-chat.qontak.com/api/open/v1'),
+        'bearer_token' => env('QONTAK_BEARER_TOKEN'),
+        'channel_integration_id' => env('QONTAK_CHANNEL_INTEGRATION_ID', '3702ae75-4d97-482c-969a-49f19254c418'),
+        'message_template_id' => env('QONTAK_MESSAGE_TEMPLATE_ID'),
+    ],
+
 ];

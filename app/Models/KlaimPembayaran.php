@@ -21,6 +21,12 @@ class KlaimPembayaran extends Model
         'nomor_id_claim',
         'nomor_rekening',
         'nomor_wa_tujuan',
+        'qontak_response_body',
+        'qontak_response_id',
+    ];
+
+    protected $casts = [
+        'qontak_response_body' => 'array',
     ];
 
     protected static function boot()

@@ -14,7 +14,7 @@ class PasswordSementaraRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_tujuan' => ['required','string','max:32'],
+            'nomor_wa_tujuan' => ['required','string','max:32'],
             'password_sementara' => ['required','string','min:4','max:64'],
         ];
     }
@@ -22,7 +22,7 @@ class PasswordSementaraRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nomor_tujuan.required' => 'nomor_tujuan wajib diisi',
+            'nomor_wa_tujuan.required' => 'nomor_tujuan wajib diisi',
             'password_sementara.required' => 'password_sementara wajib diisi',
         ];
     }

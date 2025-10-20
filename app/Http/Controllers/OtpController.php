@@ -29,7 +29,7 @@ class OtpController extends Controller
         $whatsappResult = ['success' => false, 'message' => 'Skipped sending WhatsApp'];
         try {
             $qontakService = app(QontakService::class);
-            $templateId = '36218f5a-0484-4fff-b150-d9385bf1252d';
+            $templateId = 'eccbc6c1-b4f3-4cef-a956-44f76708e79f';
             $waPayload = [
                 'to_name' => 'test',
                 'to_number' => $qontakService->normalizeIndonesianMsisdn($request->input('nomor_tujuan')),
@@ -38,7 +38,10 @@ class OtpController extends Controller
                 'language' => ['code' => 'id'],
                 'parameters' => [
                     'body' => [
-                        ['key' => '1', 'value_text' => $kodeOtp, 'value' => 'otp_code']
+                        ['key' => '1', 'value_text' => $kodeOtp, 'value' => 'otp']
+                    ],
+                    'buttons' => [
+                        ['index' => '0', 'type' => 'url', 'value' => $kodeOtp]
                     ]
                 ]
             ];

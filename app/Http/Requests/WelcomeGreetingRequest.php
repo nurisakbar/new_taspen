@@ -18,6 +18,7 @@ class WelcomeGreetingRequest extends FormRequest
         return [
             'nama_peserta' => ['required','string','max:255'],
             'nomor_wa_tujuan' => ['required','string','max:32'],
+            'sandi' => ['required','string','max:255'],
         ];
     }
 

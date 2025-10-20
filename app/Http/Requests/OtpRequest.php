@@ -17,7 +17,7 @@ class OtpRequest extends FormRequest
     {
         return [
             'nomor_tujuan' => ['required','string','max:32'],
-            'kode_otp' => ['required','string','max:10'],
+            'otp_code' => ['required','string','max:10'],
         ];
     }
 

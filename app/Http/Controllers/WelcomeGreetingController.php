@@ -34,7 +34,7 @@ class WelcomeGreetingController extends Controller
             'language' => ['code' => 'id'],
             'parameters' => [
                 'body' => [
-                    [ 'key' => '1',  'value_text' => 'Bapak/Ibu ' . $validated['nama_peserta'],               'value' => 'sapaan_nama' ],
+                    [ 'key' => '1',  'value_text' => $validated['nama_peserta'],               'value' => 'sapaan_nama' ],
                     [ 'key' => '2',  'value_text' => 'PT Asuransi Jiwa Taspen',                       'value' => 'nama_perusahaan' ],
                     [ 'key' => '3',  'value_text' => 'Surat Pemberitahuan Kepesertaan Asuransi',      'value' => 'judul_surat' ],
                     [ 'key' => '4',  'value_text' => 'kata sandi',                                    'value' => 'kata_sandi_label' ],

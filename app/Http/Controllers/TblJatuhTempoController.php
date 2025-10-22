@@ -43,9 +43,9 @@ class TblJatuhTempoController extends Controller
             'parameters' => [
                 'body' => [
                     [ 'key' => '1', 'value_text' => $payload['nama_peserta'], 'value' => 'customer_name' ],
-                    [ 'key' => '2', 'value_text' => $payload['produk_asuransi'], 'value' => 'product_name' ],
-                    [ 'key' => '3', 'value_text' => $payload['nomor_polis'], 'value' => 'policy_number' ],
-                    [ 'key' => '4', 'value_text' => $payload['nomor_va'], 'value' => 'virtual_account' ],
+                    [ 'key' => '2', 'value_text' => $payload['nomor_polis'], 'value' => 'policy_number' ],
+                    [ 'key' => '4', 'value_text' => $payload['produk_asuransi'], 'value' => 'product_name' ],
+                    [ 'key' => '3', 'value_text' => $payload['nomor_va'], 'value' => 'virtual_account' ],
                     [ 'key' => '5', 'value_text' => number_format($payload['premi_per_bulan'], 0, ',', '.'), 'value' => 'premium_amount' ],
                     [ 'key' => '6', 'value_text' => $payload['periode_tagihan'], 'value' => 'billing_period' ],
                 ]

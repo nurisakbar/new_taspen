@@ -15,6 +15,7 @@ class PasswordSementaraRequest extends FormRequest
     {
         return [
             'nomor_wa_tujuan' => ['required','string','max:32'],
+            'nama_peserta' => ['required','string','max:255'],
             'password_sementara' => ['required','string','min:4','max:64'],
         ];
     }

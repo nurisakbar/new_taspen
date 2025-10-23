@@ -7,6 +7,7 @@ use App\Models\Pesan;
 use App\Http\Requests\WelcomeGreetingRequest;
 use App\Models\WelcomeGreeting;
 use App\Services\QontakService;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class WelcomeGreetingController extends Controller
 {
@@ -76,6 +77,19 @@ class WelcomeGreetingController extends Controller
                 'whatsapp_notification' => $whatsappResult,
             ],
         ], $success ? 201 : 200);
+    }
+
+
+    public function generateSuratKepesertaan(){
+        $data['pesan'] = \App\Models\Pesan::first();
+        $data['content'] = json_decode($data['pesan']->payload, true);
+        //return $data['content'];
+        return view('surat_kepersertaan', $data);
+        return $data;
+        // $pdf = Pdf::loadView('surat_kepersertaan', $data);
+        // $pdf->save(storage_path('app/public/polis-' . $data['content']['polis_number'] . '.pdf'));
+        
+        // return url('') . "/storage/polis-" . $data['content']['polis_number'] . ".pdf";
     }
 }
 

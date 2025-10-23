@@ -20,13 +20,14 @@ class AuthResetPasswordController extends Controller
 
         $payload = [
             'nomor_tujuan' => $validated['nomor_wa_tujuan'],
+            'nama_peserta' => $validated['nama_peserta'],
             'password_sementara' => $validated['password_sementara'],
         ];
 
         $record = ResetPassword::create($payload);
 
         // Build and send WhatsApp via Qontak (template id provided by user)
-        $messageTemplateId = $request->input('message_template_id', '85967a89-ecc6-48bb-ae76-4c68606fd2bb');
+        $messageTemplateId = $request->input('message_template_id', 'eb2444b0-985a-4051-93dc-279828187cda');
         $qontakService = app(QontakService::class);
         $waPayload = [
             'to_name' => 'test',
@@ -36,9 +37,10 @@ class AuthResetPasswordController extends Controller
             'language' => ['code' => 'id'],
             'parameters' => [
                 'body' => [
-                    [ 'key' => '1', 'value_text' => 'reset password', 'value' => 'reset_password' ],
-                    [ 'key' => '2', 'value_text' => $payload['password_sementara'], 'value' => 'sementara' ],
-                    [ 'key' => '3', 'value_text' => 'ubah password', 'value' => 'ubah_password' ],
+                    [ 'key' => '1', 'value_text' => $payload['nama_peserta'], 'value' => 'nama_peserta' ],
+                    [ 'key' => '2', 'value_text' => 'sandi sementara : '.$payload['password_sementara'], 'value' => 'sementara' ],
+                    [ 'key' => '3', 'value_text' => 'login', 'value' => 'login' ],
+                    [ 'key' => '4', 'value_text' => 'ubah password', 'value' => 'ubah_password' ],
                 ]
             ],
         ];

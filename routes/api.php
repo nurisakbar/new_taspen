@@ -12,6 +12,8 @@ use App\Http\Controllers\IndividuProdukJatuhTempoController;
 use App\Http\Controllers\TshKartuPesertaController;
 use App\Http\Controllers\WelcomeGreetingController;
 use App\Http\Controllers\PendaftaranProdukController;
+  // Generate Surat Kepesertaan
+  Route::get('/surat-kepesertaan', [WelcomeGreetingController::class, 'generateSuratKepesertaan']);
 
 Route::middleware(['api','verify.api.token'])->group(function () {
     // Reset Password
@@ -37,6 +39,7 @@ Route::middleware(['api','verify.api.token'])->group(function () {
     // Welcome Greeting
     Route::post('/welcome', [WelcomeGreetingController::class, 'index']);
 
+  
     // Pendaftaran Produk
     Route::post('/produk/daftar', [PendaftaranProdukController::class, 'daftar']);
 });

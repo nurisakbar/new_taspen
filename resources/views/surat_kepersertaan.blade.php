@@ -32,7 +32,7 @@
             Jakarta, {{ $pesan['created_at']->format('d/m/Y')}}<br><br>
                 Kepada Yth.<br>
                 Bapak/Ibu {{ucwords(strtolower($content['nama_peserta']))}}<br>
-                {{ucwords(strtolower($content['alamat']??'-'))}}
+                {{ucwords(strtolower($content['alamat']))}}
             
         </div>
         <div class="content"><br>
@@ -46,7 +46,7 @@
                     <tr>
                         <td width="30%">No. Polis/No. Peserta</td>
                         <td width="5%">:</td>
-                        <td width="65%">{{$content['nomor_id_claim']??'-'}}</td>
+                        <td width="65%">{{$content['nomor_polis']}}</td>
                     </tr>
                     <tr>
                         <td width="30%">Nama Pemegang Polis</td>
@@ -67,7 +67,7 @@
                      
                         <td width="30%">Tanggal Mulai Asuransi</td>
                         <td width="5%">:</td>
-                        <td width="65%">{{date("d/m/Y",strtotime($pesan['insurance_validity_date']))}}</td>
+                        <td width="65%">{{date("d/m/Y",strtotime($content['tanggal_mulai_asuransi']))}}</td>
                     </tr>
                 </table>
             </div>

@@ -42,6 +42,3 @@ class IndividuProdukJatuhTempo extends Model
         });
     }
 }
-
-
-

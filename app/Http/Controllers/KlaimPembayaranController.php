@@ -21,9 +21,9 @@ class KlaimPembayaranController extends Controller
         // Log the incoming request
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
-        
+
         $validated = $request->validated();
 
         // Create the claim payment record
@@ -136,5 +136,3 @@ class KlaimPembayaranController extends Controller
         return $number;
     }
 }
-
-

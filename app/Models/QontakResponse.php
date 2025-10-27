@@ -12,5 +12,3 @@ class QontakResponse extends Model
 
     protected $guarded = [];
 }
-
-

@@ -23,5 +23,3 @@ class VerifyApiToken
         return $next($request);
     }
 }
-
-

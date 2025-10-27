@@ -31,5 +31,3 @@ class TshKartuPesertaRequest extends FormRequest
         ], 422));
     }
 }
-
-

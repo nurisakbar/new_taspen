@@ -40,5 +40,3 @@ class KlaimPembayaran extends Model
         });
     }
 }
-
-

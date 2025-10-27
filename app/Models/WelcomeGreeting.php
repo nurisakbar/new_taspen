@@ -20,5 +20,3 @@ class WelcomeGreeting extends Model
         'nomor_wa_tujuan',
     ];
 }
-
-

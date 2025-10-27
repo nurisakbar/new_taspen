@@ -14,7 +14,7 @@ class AuthResetPasswordController extends Controller
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
         $validated = $request->validated();
 
@@ -38,7 +38,7 @@ class AuthResetPasswordController extends Controller
             'parameters' => [
                 'body' => [
                     [ 'key' => '1', 'value_text' => $payload['nama_peserta'], 'value' => 'nama_peserta' ],
-                    [ 'key' => '2', 'value_text' => 'sandi sementara : '.$payload['password_sementara'], 'value' => 'sementara' ],
+                    [ 'key' => '2', 'value_text' => 'sandi sementara : ' . $payload['password_sementara'], 'value' => 'sementara' ],
                     [ 'key' => '3', 'value_text' => 'login', 'value' => 'login' ],
                     [ 'key' => '4', 'value_text' => 'ubah password', 'value' => 'ubah_password' ],
                 ]
@@ -68,7 +68,7 @@ class AuthResetPasswordController extends Controller
 
         $message = 'Data reset password berhasil dibuat';
         $success = true;
-        
+
         if (!$whatsappResult['success']) {
             $message .= ', namun notifikasi WhatsApp gagal dikirim';
             $success = false;
@@ -90,7 +90,7 @@ class AuthResetPasswordController extends Controller
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
         $token = $request->input('token');
         if ($token !== 'valid-token') {
@@ -109,5 +109,3 @@ class AuthResetPasswordController extends Controller
         ], 200);
     }
 }
-
-

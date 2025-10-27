@@ -33,5 +33,3 @@ class KlaimPembayaranRequest extends FormRequest
         ], 422));
     }
 }
-
-

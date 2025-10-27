@@ -24,5 +24,3 @@ class PendaftaranProduk extends Model
         'link_pengkinian_data',
     ];
 }
-
-

@@ -21,5 +21,3 @@ class TshKartuPeserta extends Model
         'nomor_kartu',
     ];
 }
-
-

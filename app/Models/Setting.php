@@ -27,5 +27,3 @@ class Setting extends Model
      */
     protected $guarded = [];
 }
-
-

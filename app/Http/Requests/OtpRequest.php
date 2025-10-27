@@ -30,6 +30,3 @@ class OtpRequest extends FormRequest
         ], 422));
     }
 }
-
-
-

@@ -13,15 +13,23 @@ class WelcomeGreetingController extends Controller
 {
     public function index(WelcomeGreetingRequest $request)
     {
-        Pesan::create([
+        $pesan = Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
         $validated = $request->validated();
 
         $record = WelcomeGreeting::create([
             'nama_peserta' => $validated['nama_peserta'],
             'nomor_wa_tujuan' => $validated['nomor_wa_tujuan'],
+            'nomor_polis' => $validated['nomor_polis'],
+            'alamat' => $validated['alamat'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'nama_produk' => $validated['nama_produk'],
+            'tanggal_mulai_asuransi' => $validated['tanggal_mulai_asuransi'],
+            'nomor_polis' => $validated['nomor_polis'],
+            'polis_url' => $validated['polis_url'],
+            'alamat' => $validated['alamat']
         ]);
 
         // Build and send WhatsApp via Qontak (template id provided by user)
@@ -65,6 +73,7 @@ class WelcomeGreetingController extends Controller
             $success = false;
         } else {
             $message .= ' dan notifikasi WhatsApp berhasil dikirim';
+            $this->generateSuratKepesertaan($pesan->id);
         }
 
         return response()->json([
@@ -80,17 +89,51 @@ class WelcomeGreetingController extends Controller
     }
 
 
-    public function generateSuratKepesertaan(){
-        $data['pesan'] = \App\Models\Pesan::first();
+    public function generateSuratKepesertaan($pesan_id)
+    {
+        $data['pesan'] = \App\Models\Pesan::where('id', $pesan_id)->first();
         $data['content'] = json_decode($data['pesan']->payload, true);
         //return $data['content'];
-        return view('surat_kepersertaan', $data);
-        return $data;
-        // $pdf = Pdf::loadView('surat_kepersertaan', $data);
-        // $pdf->save(storage_path('app/public/polis-' . $data['content']['polis_number'] . '.pdf'));
-        
-        // return url('') . "/storage/polis-" . $data['content']['polis_number'] . ".pdf";
+        // return view('surat_kepersertaan', $data);
+        // return $data;
+        $pdf = Pdf::loadView('surat_kepersertaan', $data);
+        $pdf->setEncryption("viewer_password", date("dmY", strtotime($data['content']['tanggal_lahir'])));
+        $pdf->save(storage_path('app/public/polis-' . $data['content']['nomor_polis'] . '.pdf'));
+        return url('') . "/storage/polis-" . $data['content']['nomor_polis'] . ".pdf";
+    }
+
+
+    function formVerify($id)
+    {
+        $data['id'] = $id;
+        return view('polis-verify', $data);
+    }
+
+    function verify($id, Request $request)
+    {
+        if (strlen($request->password) != 8) {
+            return redirect('polis-verify/' . $id)->with('message', 'Password Yang Anda Masukan Salah');
+        }
+        $dateTime = \DateTime::createFromFormat('dmY', $request->password);
+        if ($dateTime && $dateTime->format('dmY') != $request->password) {
+            return redirect('polis-verify/' . $id)->with('message', 'Password Yang Anda Masukan Salah');
+        }
+        $password = \DateTime::createFromFormat('dmY', $request->password)->format('Y-m-d');
+        $pesan = Pesan::where('id', $id)->first();
+
+        if ($pesan) {
+            $payload = json_decode($pesan->payload, true);
+            $tanggalLahir = $payload['tanggal_lahir'] ?? null;
+
+            if ($tanggalLahir !== $password) {
+                $pesan = null;
+            }
+        }
+        if ($pesan != null) {
+            $payload = json_decode($pesan->payload, true);
+            return redirect($payload['polis_url']);
+        } else {
+            return redirect('polis-verify/' . $id)->with('message', 'Password Yang Anda Masukan Salah');
+        }
     }
 }
-
-

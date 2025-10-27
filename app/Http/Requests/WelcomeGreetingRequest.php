@@ -19,6 +19,12 @@ class WelcomeGreetingRequest extends FormRequest
             'nama_peserta' => ['required','string','max:255'],
             'nomor_wa_tujuan' => ['required','string','max:32'],
             'sandi' => ['required','string','max:255'],
+            'nomor_polis' => ['required','string','max:64'],
+            'polis_url' => ['required','string','max:255'],
+            'nama_produk' => ['required','string','max:255'],
+            'tanggal_mulai_asuransi' => ['required','date'],
+            'alamat' => ['required','string','max:255'],
+            'tanggal_lahir' => ['required','date']
         ];
     }
 
@@ -31,5 +37,3 @@ class WelcomeGreetingRequest extends FormRequest
         ], 422));
     }
 }
-
-

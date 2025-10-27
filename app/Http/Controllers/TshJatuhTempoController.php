@@ -14,7 +14,7 @@ class TshJatuhTempoController extends Controller
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
         $validated = $request->validated();
 
@@ -76,7 +76,7 @@ class TshJatuhTempoController extends Controller
 
         $message = 'Data jatuh tempo TSH berhasil dibuat';
         $success = true;
-        
+
         if (!$whatsappResult['success']) {
             $message .= ', namun notifikasi WhatsApp gagal dikirim';
             $success = false;
@@ -94,5 +94,3 @@ class TshJatuhTempoController extends Controller
         ], $success ? 201 : 200);
     }
 }
-
-

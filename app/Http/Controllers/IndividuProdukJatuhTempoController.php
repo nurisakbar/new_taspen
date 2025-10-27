@@ -14,7 +14,7 @@ class IndividuProdukJatuhTempoController extends Controller
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
 
         $validated = $request->validated();
@@ -95,5 +95,3 @@ class IndividuProdukJatuhTempoController extends Controller
         ], $success ? 201 : 200);
     }
 }
-
-

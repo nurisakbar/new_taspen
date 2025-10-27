@@ -34,5 +34,3 @@ class PendaftaranProdukRequest extends FormRequest
         ], 422));
     }
 }
-
-

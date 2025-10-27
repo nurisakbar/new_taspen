@@ -37,7 +37,7 @@ class QontakService
                 ]
             ]
         ];
-        
+
         return $configs[$serviceType] ?? [];
     }
 
@@ -134,10 +134,18 @@ class QontakService
                     $refreshResult = $this->refreshToken($refreshToken);
                     if ($refreshResult['success']) {
                         $settings->access_token = $refreshResult['access_token'];
-                        if (!empty($refreshResult['refresh_token'])) { $settings->refresh_token = $refreshResult['refresh_token']; }
-                        if (!empty($refreshResult['expires_at'])) { $settings->token_expires_at = $refreshResult['expires_at']; }
-                        if (Schema::hasColumn($settings->getTable(), 'token')) { $settings->token = $refreshResult['access_token']; }
-                        if (Schema::hasColumn($settings->getTable(), 'expires_at') && empty($settings->token_expires_at)) { $settings->expires_at = $refreshResult['expires_at']; }
+                        if (!empty($refreshResult['refresh_token'])) {
+                            $settings->refresh_token = $refreshResult['refresh_token'];
+                        }
+                        if (!empty($refreshResult['expires_at'])) {
+                            $settings->token_expires_at = $refreshResult['expires_at'];
+                        }
+                        if (Schema::hasColumn($settings->getTable(), 'token')) {
+                            $settings->token = $refreshResult['access_token'];
+                        }
+                        if (Schema::hasColumn($settings->getTable(), 'expires_at') && empty($settings->token_expires_at)) {
+                            $settings->expires_at = $refreshResult['expires_at'];
+                        }
                         $settings->save();
 
                         $bearerToken = $refreshResult['access_token'];
@@ -174,7 +182,10 @@ class QontakService
 
             $errorResponse = $response->body();
             $errorData = null;
-            try { $errorData = json_decode($errorResponse, true); } catch (\Exception $e) {}
+            try {
+                $errorData = json_decode($errorResponse, true);
+            } catch (\Exception $e) {
+            }
             Log::error("Failed to send WhatsApp {$serviceType}", [
                 'status' => $response->status(),
                 'headers' => $response->headers(),
@@ -236,10 +247,18 @@ class QontakService
                     $refreshResult = $this->refreshToken($refreshToken);
                     if ($refreshResult['success']) {
                         $settings->access_token = $refreshResult['access_token'];
-                        if (!empty($refreshResult['refresh_token'])) { $settings->refresh_token = $refreshResult['refresh_token']; }
-                        if (!empty($refreshResult['expires_at'])) { $settings->token_expires_at = $refreshResult['expires_at']; }
-                        if (Schema::hasColumn($settings->getTable(), 'token')) { $settings->token = $refreshResult['access_token']; }
-                        if (Schema::hasColumn($settings->getTable(), 'expires_at') && empty($settings->token_expires_at)) { $settings->expires_at = $refreshResult['expires_at']; }
+                        if (!empty($refreshResult['refresh_token'])) {
+                            $settings->refresh_token = $refreshResult['refresh_token'];
+                        }
+                        if (!empty($refreshResult['expires_at'])) {
+                            $settings->token_expires_at = $refreshResult['expires_at'];
+                        }
+                        if (Schema::hasColumn($settings->getTable(), 'token')) {
+                            $settings->token = $refreshResult['access_token'];
+                        }
+                        if (Schema::hasColumn($settings->getTable(), 'expires_at') && empty($settings->token_expires_at)) {
+                            $settings->expires_at = $refreshResult['expires_at'];
+                        }
                         $settings->save();
 
                         $bearerToken = $refreshResult['access_token'];
@@ -276,7 +295,10 @@ class QontakService
 
             $errorResponse = $response->body();
             $errorData = null;
-            try { $errorData = json_decode($errorResponse, true); } catch (\Exception $e) {}
+            try {
+                $errorData = json_decode($errorResponse, true);
+            } catch (\Exception $e) {
+            }
             Log::error('Failed to send WhatsApp (direct)', [
                 'status' => $response->status(),
                 'headers' => $response->headers(),
@@ -419,7 +441,10 @@ class QontakService
 
             $errorResponse = $response->body();
             $errorData = null;
-            try { $errorData = json_decode($errorResponse, true); } catch (\Exception $e) {}
+            try {
+                $errorData = json_decode($errorResponse, true);
+            } catch (\Exception $e) {
+            }
             Log::error('Failed to send WhatsApp message', [
                 'status' => $response->status(),
                 'headers' => $response->headers(),
@@ -462,7 +487,11 @@ class QontakService
             $now = Carbon::now();
             $expiresAt = null;
             if (!empty($expiresAtRaw)) {
-                try { $expiresAt = Carbon::parse($expiresAtRaw); } catch (\Throwable $e) { Log::warning('Unable to parse token expiration timestamp', ['raw' => $expiresAtRaw]); }
+                try {
+                    $expiresAt = Carbon::parse($expiresAtRaw);
+                } catch (\Throwable $e) {
+                    Log::warning('Unable to parse token expiration timestamp', ['raw' => $expiresAtRaw]);
+                }
             }
 
             $needsRefresh = empty($accessToken) || empty($refreshToken) || ($expiresAt instanceof Carbon && $now->diffInSeconds($expiresAt, false) <= 60);
@@ -471,13 +500,23 @@ class QontakService
                     return [ 'success' => false, 'message' => 'Refresh token not available in settings' ];
                 }
                 $refreshResult = $this->refreshToken($refreshToken);
-                if (!$refreshResult['success']) { return $refreshResult; }
+                if (!$refreshResult['success']) {
+                    return $refreshResult;
+                }
 
                 $settings->access_token = $refreshResult['access_token'];
-                if (!empty($refreshResult['refresh_token'])) { $settings->refresh_token = $refreshResult['refresh_token']; }
-                if (!empty($refreshResult['expires_at'])) { $settings->token_expires_at = $refreshResult['expires_at']; }
-                if (Schema::hasColumn($settings->getTable(), 'token')) { $settings->token = $refreshResult['access_token']; }
-                if (Schema::hasColumn($settings->getTable(), 'expires_at') && empty($settings->token_expires_at)) { $settings->expires_at = $refreshResult['expires_at']; }
+                if (!empty($refreshResult['refresh_token'])) {
+                    $settings->refresh_token = $refreshResult['refresh_token'];
+                }
+                if (!empty($refreshResult['expires_at'])) {
+                    $settings->token_expires_at = $refreshResult['expires_at'];
+                }
+                if (Schema::hasColumn($settings->getTable(), 'token')) {
+                    $settings->token = $refreshResult['access_token'];
+                }
+                if (Schema::hasColumn($settings->getTable(), 'expires_at') && empty($settings->token_expires_at)) {
+                    $settings->expires_at = $refreshResult['expires_at'];
+                }
                 $settings->save();
 
                 return [ 'success' => true, 'access_token' => $refreshResult['access_token'] ];
@@ -515,9 +554,13 @@ class QontakService
             $newRefreshToken = $data['refresh_token'] ?? null;
             $expiresIn = $data['expires_in'] ?? null; // seconds
             $expiresAt = null;
-            if (!empty($expiresIn)) { $expiresAt = Carbon::now()->addSeconds(intval($expiresIn))->toDateTimeString(); }
+            if (!empty($expiresIn)) {
+                $expiresAt = Carbon::now()->addSeconds(intval($expiresIn))->toDateTimeString();
+            }
 
-            if (empty($accessToken)) { return [ 'success' => false, 'message' => 'Token refresh succeeded but access_token missing' ]; }
+            if (empty($accessToken)) {
+                return [ 'success' => false, 'message' => 'Token refresh succeeded but access_token missing' ];
+            }
 
             return [ 'success' => true, 'access_token' => $accessToken, 'refresh_token' => $newRefreshToken, 'expires_at' => $expiresAt ];
         } catch (\Throwable $e) {
@@ -529,17 +572,29 @@ class QontakService
     public function normalizeIndonesianMsisdn($input): string
     {
         $number = trim((string) $input);
-        if ($number === '') { return $number; }
+        if ($number === '') {
+            return $number;
+        }
         $number = preg_replace('/[\s\-()]/', '', $number);
-        if ($number === null) { $number = ''; }
-        if (strpos($number, '+') === 0) { $number = substr($number, 1); }
+        if ($number === null) {
+            $number = '';
+        }
+        if (strpos($number, '+') === 0) {
+            $number = substr($number, 1);
+        }
         $number = preg_replace('/\D/', '', $number) ?? '';
-        if ($number === '') { return $number; }
-        if (strpos($number, '62') === 0) { return $number; }
-        if (strpos($number, '0') === 0) { return '62' . substr($number, 1); }
-        if (strpos($number, '8') === 0) { return '62' . $number; }
+        if ($number === '') {
+            return $number;
+        }
+        if (strpos($number, '62') === 0) {
+            return $number;
+        }
+        if (strpos($number, '0') === 0) {
+            return '62' . substr($number, 1);
+        }
+        if (strpos($number, '8') === 0) {
+            return '62' . $number;
+        }
         return $number;
     }
 }
-
-

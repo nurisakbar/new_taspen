@@ -14,12 +14,12 @@ class OtpController extends Controller
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
 
         // Generate random 6-digit OTP code
         $kodeOtp = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-        
+
         $created = Otp::create([
             'nomor_tujuan' => $request->input('nomor_tujuan'),
             'kode_otp' => $kodeOtp
@@ -73,7 +73,7 @@ class OtpController extends Controller
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
         $otp = $request->input('otp');
         if ($otp !== '123456') {
@@ -88,7 +88,4 @@ class OtpController extends Controller
             'message' => 'OTP verified'
         ]);
     }
-
 }
-
-

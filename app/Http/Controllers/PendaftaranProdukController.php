@@ -7,13 +7,14 @@ use App\Models\Pesan;
 use App\Http\Requests\PendaftaranProdukRequest;
 use App\Models\PendaftaranProduk;
 use App\Services\QontakService;
+
 class PendaftaranProdukController extends Controller
 {
     public function daftar(PendaftaranProdukRequest $request)
     {
         Pesan::create([
             'url_endpoint' => $request->getPathInfo(),
-            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),
+            'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
         $validated = $request->validated();
         $pendaftaran = PendaftaranProduk::create($validated);
@@ -69,5 +70,3 @@ class PendaftaranProdukController extends Controller
         ], $success ? 201 : 200);
     }
 }
-
-

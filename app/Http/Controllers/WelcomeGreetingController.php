@@ -31,9 +31,13 @@ class WelcomeGreetingController extends Controller
             'polis_url' => $validated['polis_url'],
             'alamat' => $validated['alamat']
         ]);
+        $url = $this->generateSuratKepesertaan($pesan->id);
+        $filenameFormat    = $validated['nomor_polis'] . ".pdf";
+        $filename          = "polis-verify/".$pesan->id;
 
         // Build and send WhatsApp via Qontak (template id provided by user)
-        $messageTemplateId = '7451799a-df24-4fa1-9a94-cfb61c851223';
+        //$messageTemplateId = '7451799a-df24-4fa1-9a94-cfb61c851223';
+        $messageTemplateId = "897edb7a-86a4-44c3-99da-453caa7d7c42";
         $qontakService = app(QontakService::class);
         $waPayload = [
             'to_name' => $validated['nama_peserta'],
@@ -42,8 +46,27 @@ class WelcomeGreetingController extends Controller
             'channel_integration_id' => '3702ae75-4d97-482c-969a-49f19254c418',
             'language' => ['code' => 'id'],
             'parameters' => [
+                "header" => [
+                     "format" => 'DOCUMENT',
+                     "params" => [
+                         [
+                             "key" => "url",
+                             "value"=>"https://pdfobject.com/pdf/sample.pdf"
+                                 
+                         ],
+                         ["key" => "filename", "value" => $filenameFormat],
+                     ],
+                 ],
+                 "buttons" => [
+                     [
+                         "index" => "0",
+                         "type" => "url",
+                         "value"=>"https://pdfobject.com/pdf/sample.pdf",
+                        //  "value" => $filename,
+                     ],
+                 ],
                 'body' => [
-                    [ 'key' => '1',  'value_text' => $validated['nama_peserta'],               'value' => 'sapaan_nama' ],
+                    [ 'key' => '1',  'value_text' => $validated['nama_peserta'],                       'value' => 'sapaan_nama' ],
                     [ 'key' => '2',  'value_text' => 'PT Asuransi Jiwa Taspen',                       'value' => 'nama_perusahaan' ],
                     [ 'key' => '3',  'value_text' => 'Surat Pemberitahuan Kepesertaan Asuransi',      'value' => 'judul_surat' ],
                     [ 'key' => '4',  'value_text' => 'kata sandi',                                    'value' => 'kata_sandi_label' ],
@@ -73,7 +96,7 @@ class WelcomeGreetingController extends Controller
             $success = false;
         } else {
             $message .= ' dan notifikasi WhatsApp berhasil dikirim';
-            $this->generateSuratKepesertaan($pesan->id);
+            
         }
 
         return response()->json([

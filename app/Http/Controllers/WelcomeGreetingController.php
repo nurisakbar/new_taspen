@@ -32,7 +32,6 @@ class WelcomeGreetingController extends Controller
             'alamat' => $validated['alamat']
         ]);
         $url = $this->generateSuratKepesertaan($pesan->id);
-        return $url;
         $filenameFormat    = $validated['nomor_polis'] . ".pdf";
         $filename          = "polis-verify/".$pesan->id;
 
@@ -52,7 +51,7 @@ class WelcomeGreetingController extends Controller
                      "params" => [
                          [
                              "key" => "url",
-                             "value"=>"https://pdfobject.com/pdf/sample.pdf"
+                             "value"=>$url
                                  
                          ],
                          ["key" => "filename", "value" => $filenameFormat],
@@ -62,8 +61,8 @@ class WelcomeGreetingController extends Controller
                      [
                          "index" => "0",
                          "type" => "url",
-                         "value"=>"https://pdfobject.com/pdf/sample.pdf",
-                        //  "value" => $filename,
+                         //"value"=>"https://pdfobject.com/pdf/sample.pdf",
+                        "value" => $filename,
                      ],
                  ],
                 'body' => [

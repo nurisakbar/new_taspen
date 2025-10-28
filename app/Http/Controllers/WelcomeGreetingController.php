@@ -66,7 +66,7 @@ class WelcomeGreetingController extends Controller
                      ],
                  ],
                 'body' => [
-                    [ 'key' => '1',  'value_text' => $validated['nama_peserta'],                       'value' => 'sapaan_nama' ],
+                    [ 'key' => '1',  'value_text' => $validated['nama_peserta'],                      'value' => 'sapaan_nama' ],
                     [ 'key' => '2',  'value_text' => 'PT Asuransi Jiwa Taspen',                       'value' => 'nama_perusahaan' ],
                     [ 'key' => '3',  'value_text' => 'Surat Pemberitahuan Kepesertaan Asuransi',      'value' => 'judul_surat' ],
                     [ 'key' => '4',  'value_text' => 'kata sandi',                                    'value' => 'kata_sandi_label' ],
@@ -122,7 +122,7 @@ class WelcomeGreetingController extends Controller
         $pdf = Pdf::loadView('surat_kepersertaan', $data);
         $pdf->setEncryption("viewer_password", date("dmY", strtotime($data['content']['tanggal_lahir'])));
         $pdf->save(storage_path('app/public/polis-' . $data['content']['nomor_polis'] . '.pdf'));
-        return "http://taspen.klikakutansi.com/storage/polis-" . $data['content']['nomor_polis'] . ".pdf";
+        return "https://taspen.klikakutansi.com/storage/polis-" . $data['content']['nomor_polis'] . ".pdf";
     }
 
 

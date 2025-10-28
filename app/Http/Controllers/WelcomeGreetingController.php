@@ -123,7 +123,7 @@ class WelcomeGreetingController extends Controller
         $pdf = Pdf::loadView('surat_kepersertaan', $data);
         $pdf->setEncryption("viewer_password", date("dmY", strtotime($data['content']['tanggal_lahir'])));
         $pdf->save(storage_path('app/public/polis-' . $data['content']['nomor_polis'] . '.pdf'));
-        return url('') . "/storage/polis-" . $data['content']['nomor_polis'] . ".pdf";
+        return "http://taspen.klikakutansi.com/storage/polis-" . $data['content']['nomor_polis'] . ".pdf";
     }
 
 

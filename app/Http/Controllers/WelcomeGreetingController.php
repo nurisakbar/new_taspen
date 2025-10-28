@@ -32,6 +32,7 @@ class WelcomeGreetingController extends Controller
             'alamat' => $validated['alamat']
         ]);
         $url = $this->generateSuratKepesertaan($pesan->id);
+        return $url;
         $filenameFormat    = $validated['nomor_polis'] . ".pdf";
         $filename          = "polis-verify/".$pesan->id;
 

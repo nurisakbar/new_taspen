@@ -12,6 +12,7 @@ use App\Http\Controllers\IndividuProdukJatuhTempoController;
 use App\Http\Controllers\TshKartuPesertaController;
 use App\Http\Controllers\WelcomeGreetingController;
 use App\Http\Controllers\PendaftaranProdukController;
+use App\Http\Controllers\LapseController;
   // Generate Surat Kepesertaan
   Route::get('/surat-kepesertaan', [WelcomeGreetingController::class, 'generateSuratKepesertaan']);
 
@@ -42,6 +43,15 @@ Route::middleware(['api','verify.api.token'])->group(function () {
   
     // Pendaftaran Produk
     Route::post('/produk/daftar', [PendaftaranProdukController::class, 'daftar']);
+
+    // Lapse TSS
+    Route::post('/lapse/tss', [LapseController::class, 'tss']);
+    
+    // Lapse TBL
+    Route::post('/lapse/tbl', [LapseController::class, 'tbl']);
+    
+    // Lapse THCPTSH
+    Route::post('/lapse/thcptsh', [LapseController::class, 'thcptsh']);
 });
 
 

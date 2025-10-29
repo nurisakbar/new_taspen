@@ -56,14 +56,14 @@ class WelcomeGreetingController extends Controller
                          ]
                      ],
                  ],
-                 "buttons" => [
-                     [
-                         "index" => "0",
-                         "type" => "url",
-                         "value"=>"polis-verify/4631a179-4403-4336-bb9a-80e469ea37e6"
+                //  "buttons" => [
+                //      [
+                //          "index" => "0",
+                //          "type" => "url",
+                //          "value"=>"polis-verify/4631a179-4403-4336-bb9a-80e469ea37e6"
                    
-                     ],
-                 ],
+                //      ],
+                //  ],
                 'body' => [
                     [ 'key' => '1',  'value_text' => $validated['nama_peserta'],                      'value' => 'sapaan_nama' ],
                     [ 'key' => '2',  'value_text' => 'PT Asuransi Jiwa Taspen',                       'value' => 'nama_perusahaan' ],

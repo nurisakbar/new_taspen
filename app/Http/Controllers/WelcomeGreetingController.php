@@ -36,8 +36,8 @@ class WelcomeGreetingController extends Controller
         $filename          = "polis-verify/".$pesan->id;
 
         // Build and send WhatsApp via Qontak (template id provided by user)
-        $messageTemplateId = '7451799a-df24-4fa1-9a94-cfb61c851223';
-        // $messageTemplateId = "897edb7a-86a4-44c3-99da-453caa7d7c42";
+        //$messageTemplateId = '7451799a-df24-4fa1-9a94-cfb61c851223';
+        $messageTemplateId = "897edb7a-86a4-44c3-99da-453caa7d7c42";
         $qontakService = app(QontakService::class);
         $waPayload = [
             'to_name' => $validated['nama_peserta'],

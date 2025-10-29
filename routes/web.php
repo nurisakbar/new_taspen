@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeGreetingController;
 Route::get('/', function () {
-    return view('welcome');
+    return abort(404);
 });
 
 Route::post('send','ApiController@send');

@@ -13,6 +13,7 @@ use App\Http\Controllers\TshKartuPesertaController;
 use App\Http\Controllers\WelcomeGreetingController;
 use App\Http\Controllers\PendaftaranProdukController;
 use App\Http\Controllers\LapseController;
+use App\Http\Controllers\ManfaatAnuitasController;
   // Generate Surat Kepesertaan
   Route::get('/surat-kepesertaan', [WelcomeGreetingController::class, 'generateSuratKepesertaan']);
 
@@ -36,6 +37,9 @@ Route::middleware(['api','verify.api.token'])->group(function () {
 
     // Informasi Kartu Peserta TSH
     Route::post('/tsh/kartu-peserta', [TshKartuPesertaController::class, 'show']);
+
+    // Manfaat Anuitas
+    Route::post('/manfaat/anuitas', [ManfaatAnuitasController::class, 'show']);
 
     // Welcome Greeting
     Route::post('/welcome', [WelcomeGreetingController::class, 'index']);

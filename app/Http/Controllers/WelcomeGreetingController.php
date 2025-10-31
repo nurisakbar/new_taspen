@@ -33,11 +33,11 @@ class WelcomeGreetingController extends Controller
         ]);
         $url = $this->generateSuratKepesertaan($pesan->id);
         $filenameFormat    = $validated['nomor_polis'] . ".pdf";
-        $filename          = "polis-verify/".$pesan->id;
+        $filename          = "polis-verify/" . $pesan->id;
 
         // Build and send WhatsApp via Qontak (template id provided by user)
         //$messageTemplateId = '7451799a-df24-4fa1-9a94-cfb61c851223';
-        $messageTemplateId = "897edb7a-86a4-44c3-99da-453caa7d7c42";
+        $messageTemplateId = "b9c1de72-bff2-44e4-8bcd-d0dc7bbd403a";
         $qontakService = app(QontakService::class);
         $waPayload = [
             'to_name' => $validated['nama_peserta'],
@@ -51,19 +51,26 @@ class WelcomeGreetingController extends Controller
                      "params" => [
                          [
                              "key" => "url",
-                             "value"=>$url
-                                 
+                             "value" => $url,
+                             //"value"=>"http://taspen.klikakutansi.com/storage/polis-NOMORPOLIS123.pdf"
+
+                         ],
+                         [
+                            "key" => "filename",
+                            "value" => $filenameFormat,
+                            //"value"=>"polis-NOMORPOLIS123.pdf"
                          ]
                      ],
                  ],
-                //  "buttons" => [
-                //      [
-                //          "index" => "0",
-                //          "type" => "url",
-                //          "value"=>"polis-verify/4631a179-4403-4336-bb9a-80e469ea37e6"
-                   
-                //      ],
-                //  ],
+                 "buttons" => [
+                     [
+                        "index" => "0",
+                         "type" => "url",
+                         "value" => "polis-verify/" . $pesan->id
+                         //"value"=>"polis-verify/4631a179-4403-4336-bb9a-80e469ea37e6"
+
+                     ],
+                 ],
                 'body' => [
                     [ 'key' => '1',  'value_text' => $validated['nama_peserta'],                      'value' => 'sapaan_nama' ],
                     [ 'key' => '2',  'value_text' => 'PT Asuransi Jiwa Taspen',                       'value' => 'nama_perusahaan' ],
@@ -95,7 +102,6 @@ class WelcomeGreetingController extends Controller
             $success = false;
         } else {
             $message .= ' dan notifikasi WhatsApp berhasil dikirim';
-            
         }
 
         return response()->json([

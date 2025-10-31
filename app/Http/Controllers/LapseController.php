@@ -20,7 +20,7 @@ class LapseController extends Controller
             'url_endpoint' => $request->getPathInfo(),
             'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
-        
+
         $validated = $request->validated();
 
         $payload = [
@@ -98,7 +98,7 @@ class LapseController extends Controller
             'url_endpoint' => $request->getPathInfo(),
             'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
-        
+
         $validated = $request->validated();
 
         $payload = [
@@ -176,7 +176,7 @@ class LapseController extends Controller
             'url_endpoint' => $request->getPathInfo(),
             'payload' => json_encode($request->all(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         ]);
-        
+
         $validated = $request->validated();
 
         $payload = [

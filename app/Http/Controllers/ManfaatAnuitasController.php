@@ -38,7 +38,7 @@ class ManfaatAnuitasController extends Controller
         ]);
 
         // Build and send WhatsApp via Qontak (template id provided by user)
-        $messageTemplateId = $request->input('message_template_id', '41c76eb0-4aff-446f-8772-2e2afc464cc2');
+        $messageTemplateId = $request->input('message_template_id', '64ba6f91-5d1d-4f7f-8939-ef8572f731ce');
         $qontakService = app(QontakService::class);
         $waPayload = [
             'to_name' => $validated['nama_peserta'],
@@ -50,17 +50,13 @@ class ManfaatAnuitasController extends Controller
                 'body' => [
                     [ 'key' => '1', 'value_text' => $validated['nama_peserta'], 'value' => 'customer_name' ],
                     [ 'key' => '2', 'value_text' => $validated['nomor_peserta'], 'value' => 'part_number' ],
-                    [ 'key' => '3', 'value_text' => 'Manfaat Anuitas', 'value' => 'benefit_type' ],
-                    [ 'key' => '4', 'value_text' => $validated['periode'], 'value' => 'period' ],
-                    [ 'key' => '5', 'value_text' => 'Nilai Manfaat Bulanan', 'value' => 'benefit_label' ],
-                    [ 'key' => '6', 'value_text' => $this->formatRupiah($validated['nilai_manfaat_bulanan']), 'value' => 'benefit_amount' ],
-                    [ 'key' => '7', 'value_text' => 'Saldo Nilai Tunai saat ini', 'value' => 'cash_label' ],
-                    [ 'key' => '8', 'value_text' => $this->formatRupiah($validated['saldo_nilai_tunai']), 'value' => 'cash_amount' ],
-                    [ 'key' => '9', 'value_text' => 'TL Care', 'value' => 'service_name' ],
-                    [ 'key' => '10', 'value_text' => '(021) 5080 8158', 'value' => 'phone_number' ],
-                    [ 'key' => '11', 'value_text' => '0811 8111 1808 (Whatsapp Chat)', 'value' => 'whatsapp_number' ],
-                    [ 'key' => '12', 'value_text' => 'tlscenter@taspenlife.com', 'value' => 'email' ],
-                    [ 'key' => '13', 'value_text' => 'PT Asuransi Jiwa Taspen', 'value' => 'company_name' ],
+                    [ 'key' => '3', 'value_text' => $validated['periode'], 'value' => 'period' ],
+                    [ 'key' => '4', 'value_text' => $this->formatRupiah($validated['nilai_manfaat_bulanan']), 'value' => 'benefit_amount' ],
+                    [ 'key' => '5', 'value_text' => $this->formatRupiah($validated['saldo_nilai_tunai']), 'value' => 'cash_amount' ],
+                    [ 'key' => '6', 'value_text' => 'TL Care', 'value' => 'service_name' ],
+                    [ 'key' => '7', 'value_text' => '0811 8111 1808 (WhatsApp Chat)', 'value' => 'whatsapp_number' ],
+                    [ 'key' => '8', 'value_text' => 'tlscenter@taspenlife.com', 'value' => 'email' ],
+                    [ 'key' => '9', 'value_text' => 'PT Asuransi Jiwa Taspen', 'value' => 'company_name' ],
                 ]
             ],
         ];

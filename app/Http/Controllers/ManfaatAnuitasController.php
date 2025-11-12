@@ -54,7 +54,7 @@ class ManfaatAnuitasController extends Controller
                     [ 'key' => '4', 'value_text' => $this->formatRupiah($validated['nilai_manfaat_bulanan']), 'value' => 'benefit_amount' ],
                     [ 'key' => '5', 'value_text' => $this->formatRupiah($validated['saldo_nilai_tunai']), 'value' => 'cash_amount' ],
                     [ 'key' => '6', 'value_text' => 'TL Care', 'value' => 'service_name' ],
-                    [ 'key' => '7', 'value_text' => '0811 8111 1808 (WhatsApp Chat)', 'value' => 'whatsapp_number' ],
+                    [ 'key' => '7', 'value_text' => '0811 8111 1808 ', 'value' => 'whatsapp_number' ],
                     [ 'key' => '8', 'value_text' => 'tlscenter@taspenlife.com', 'value' => 'email' ],
                     [ 'key' => '9', 'value_text' => 'PT Asuransi Jiwa Taspen', 'value' => 'company_name' ],
                 ]

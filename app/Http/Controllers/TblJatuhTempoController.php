@@ -32,7 +32,8 @@ class TblJatuhTempoController extends Controller
         $record = IndividuProdukJatuhTempo::create($payload);
 
         // Build full Qontak payload from controller (template id differs from TSH)
-        $messageTemplateId = $request->input('message_template_id', '7079c564-47a7-4aa2-b8be-74df32758d87');
+        //$messageTemplateId = $request->input('message_template_id', '7079c564-47a7-4aa2-b8be-74df32758d87');
+        $messageTemplateId = $request->input('message_template_id', '12d4b345-3a5c-4555-9fd3-dbb5aeb7ddb5');
         $qontakService = app(QontakService::class);
         $waPayload = [
             'to_name' => $payload['nama_peserta'],

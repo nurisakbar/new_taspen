@@ -14,8 +14,11 @@ use App\Http\Controllers\WelcomeGreetingController;
 use App\Http\Controllers\PendaftaranProdukController;
 use App\Http\Controllers\LapseController;
 use App\Http\Controllers\ManfaatAnuitasController;
-  // Generate Surat Kepesertaan
-  Route::get('/surat-kepesertaan', [WelcomeGreetingController::class, 'generateSuratKepesertaan']);
+use App\Http\Controllers\SendController;
+
+Route::get('/surat-kepesertaan', [WelcomeGreetingController::class, 'generateSuratKepesertaan']);
+
+Route::post('/send', [SendController::class, 'send']);
 
 Route::middleware(['api','verify.api.token'])->group(function () {
     // Reset Password

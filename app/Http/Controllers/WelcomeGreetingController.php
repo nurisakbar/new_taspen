@@ -151,7 +151,10 @@ class WelcomeGreetingController extends Controller
 
         if ($pesan) {
             $payload = json_decode($pesan->payload, true);
-            $tanggalLahir = $payload['tanggal_lahir'] ?? null;
+            $tanggalLahir = $payload['tanggal_lahir'] ?? ($payload['birth_date'] ?? null);
+            if ($tanggalLahir) {
+                $tanggalLahir = date('Y-m-d', strtotime($tanggalLahir));
+            }
 
             if ($tanggalLahir !== $password) {
                 $pesan = null;

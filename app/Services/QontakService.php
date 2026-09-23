@@ -533,8 +533,9 @@ class QontakService
     {
         try {
             $oauthUrl = 'https://service-chat.qontak.com/oauth/token';
-            $clientId = 'RRrn6uIxalR_QaHFlcKOqbjHMG63elEdPTair9B9YdY';
-            $clientSecret = 'Sa8IGIh_HpVK1ZLAF0iFf7jU760osaUNV659pBIZR00';
+            $settings = Setting::query()->first();
+            $clientId = $settings->client_id ?? 'RRrn6uIxalR_QaHFlcKOqbjHMG63elEdPTair9B9YdY';
+            $clientSecret = $settings->client_secret ?? 'Sa8IGIh_HpVK1ZLAF0iFf7jU760osaUNV659pBIZR00';
 
             $payload = [
                 'refresh_token' => $refreshToken,

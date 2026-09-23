@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class SendMessage implements ShouldQueue
 {
@@ -48,9 +49,12 @@ class SendMessage implements ShouldQueue
         }
 
         $fileName = $record->polis_number . '.pdf';
-        $pdf->save(storage_path('app/public/polis-' . $fileName));
+        $pdfOutput = $pdf->output();
 
-        $url = 'https://taspen.klikakutansi.com/storage/polis-' . $fileName;
+        $this->uploadPolisPdf($fileName, $pdfOutput);
+        $endpoint = rtrim((string) config('filesystems.disks.s3.endpoint'), '/');
+        $bucket = (string) config('filesystems.disks.s3.bucket');
+        $url = $endpoint . '/' . $bucket . '/' . $fileName;
         $filename = 'polis-verify/' . ($record->pesan_id ?? $record->id);
 
         $waPayload = [
@@ -99,6 +103,11 @@ class SendMessage implements ShouldQueue
             'qontak_response' => $whatsappResult,
             'response_id' => $responseId,
         ]);
+    }
+
+    private function uploadPolisPdf(string $fileName, string $pdfOutput): void
+    {
+        Storage::disk('s3')->put($fileName, $pdfOutput, 'public');
     }
 
     private function tanggalIndo($date): string

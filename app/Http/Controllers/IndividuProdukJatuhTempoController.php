@@ -33,7 +33,7 @@ class IndividuProdukJatuhTempoController extends Controller
         $record = IndividuProdukJatuhTempo::create($payload);
 
         // Build Qontak payload same as TBL (template id can be overridden via request)
-        $messageTemplateId = $request->input('message_template_id', '4af41271-9485-4586-bb50-a98f78334b67');
+        $messageTemplateId = $request->input('message_template_id', 'c931dca6-e793-4967-8abc-5fcc1be36d74');
         $qontakService = app(QontakService::class);
         $waPayload = [
             'to_name' => $payload['nama_peserta'],
